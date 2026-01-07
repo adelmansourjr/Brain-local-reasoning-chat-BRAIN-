@@ -1,0 +1,21 @@
+name: r78m-web-reason
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - lxml
+  - libxml2
+  - libxslt
+  - ca-certificates
+  - openssl
+  - pip:
+      - mlx
+      - mlx-lm
+      - ddgs
+      - httpx
+      - trafilatura
+      - huggingface_hub
+      - datasets
+      # Optional backends you might try later:
+      # - tavily-python

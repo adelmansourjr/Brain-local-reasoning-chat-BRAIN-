@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BRAIN — Local</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <!-- Left rail: conversations -->
+  <aside id="nav" aria-label="Conversations">
+    <div class="nav-header">
+      <div class="brand">BRAIN</div>
+      <div class="nav-actions">
+        <button id="newChat" class="pill primary" aria-label="Start a new chat">+ New</button>
+      </div>
+    </div>
+
+    <div class="conv-list" id="convList" role="list"></div>
+
+    <div class="nav-footer">
+      <div class="model">Model: <code id="modelPath">loading…</code></div>
+      <div class="hint">Search: <span id="searchBackend">detecting…</span></div>
+    </div>
+  </aside>
+
+  <!-- Main: header with centered search, chat stream -->
+  <main id="main" aria-label="Chat">
+    <header id="topbar">
+      <!-- Left: toggles -->
+      <div class="toggles" role="group" aria-label="Assistant options">
+        <label class="switch" title="Reasoning">
+          <input type="checkbox" id="useReasoning" checked />
+          <i class="track"></i><span>Reasoning</span>
+        </label>
+        <label class="switch" title="Web search">
+          <input type="checkbox" id="useWeb" checked />
+          <i class="track"></i><span>Web</span>
+        </label>
+      </div>
+
+      <!-- Center: SEARCH BAR (composer) -->
+      <form id="composer" autocomplete="off" aria-label="Ask BRAIN">
+        <div class="composer-wrap">
+          <textarea id="input" rows="1" placeholder="Ask BRAIN…" spellcheck="true"></textarea>
+          <div class="actions">
+            <button id="send" type="submit" title="Send">↵</button>
+          </div>
+        </div>
+        <div class="fine-print">Shift+Enter for newline</div>
+      </form>
+
+      <!-- Right: knobs -->
+      <div class="knobs" role="group" aria-label="Generation controls">
+        <div class="knob"><span>Temp</span><input type="range" id="temp" min="0.0" max="1.2" step="0.05" value="0.5" /></div>
+        <div class="knob"><span>Top-p</span><input type="range" id="topp" min="0.1" max="1.0" step="0.05" value="0.95" /></div>
+        <div class="knob"><span>Max</span><input type="number" id="maxNew" min="32" max="1024" value="320" /></div>
+        <div class="knob"><span>Region</span><input type="text" id="region" value="uk-en" /></div>
+      </div>
+    </header>
+
+    <section id="chatScroll">
+      <div id="messages" class="container"></div>
+    </section>
+  </main>
+
+  <script>
+    // Model path (best-effort)
+    fetch('/model_path.txt').then(async r=>{
+      document.getElementById('modelPath').textContent = r.ok ? (await r.text()).trim() : 'env/default';
+    }).catch(()=>{ document.getElementById('modelPath').textContent = 'env/default'; });
+
+    // “Detect” search backend (placeholder)
+    fetch('/').then(()=>{ document.getElementById('searchBackend').textContent = 'DuckDuckGo'; })
+              .catch(()=>{ document.getElementById('searchBackend').textContent = 'OFF'; });
+  </script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
