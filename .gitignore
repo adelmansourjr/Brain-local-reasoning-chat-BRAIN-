@@ -1,0 +1,54 @@
+## Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.eggs/
+venv/
+env/
+.env
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VS Code
+.vscode/
+.history/
+
+# Pytest
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Build / packaging
+build/
+dist/
+*.egg
+
+# Model artifacts (do not commit large model files)
+/models/
+
+# OS generated files
+Thumbs.db
+
+# IDEs
+.idea/
+
+# Lockfiles
+poetry.lock
+
+# Misc
+coverage.xml
+htmlcov/
